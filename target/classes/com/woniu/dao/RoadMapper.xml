@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniu.dao.RoadMapper">
+  <resultMap id="BaseResultMap" type="com.woniu.domain.Road">
+    <id column="roadId" jdbcType="INTEGER" property="roadid" />
+    <result column="typeId" jdbcType="INTEGER" property="typeid" />
+    <result column="roadLevelId" jdbcType="INTEGER" property="roadlevelid" />
+    <result column="roadName" jdbcType="VARCHAR" property="roadname" />
+    <result column="beginPosition" jdbcType="VARCHAR" property="beginposition" />
+    <result column="endPosition" jdbcType="VARCHAR" property="endposition" />
+    <result column="beginSign" jdbcType="VARCHAR" property="beginsign" />
+    <result column="endSign" jdbcType="VARCHAR" property="endsign" />
+    <result column="buildTime" jdbcType="DATE" property="buildtime" />
+    <result column="buildCompany" jdbcType="VARCHAR" property="buildcompany" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    roadId, typeId, roadLevelId, roadName, beginPosition, endPosition, beginSign, endSign, 
+    buildTime, buildCompany
+  </sql>
+  <select id="selectByExample" parameterType="com.woniu.domain.RoadExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from road
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from road
+    where roadId = #{roadid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from road
+    where roadId = #{roadid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniu.domain.RoadExample">
+    delete from road
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniu.domain.Road">
+    insert into road (roadId, typeId, roadLevelId, 
+      roadName, beginPosition, endPosition, 
+      beginSign, endSign, buildTime, 
+      buildCompany)
+    values (#{roadid,jdbcType=INTEGER}, #{typeid,jdbcType=INTEGER}, #{roadlevelid,jdbcType=INTEGER}, 
+      #{roadname,jdbcType=VARCHAR}, #{beginposition,jdbcType=VARCHAR}, #{endposition,jdbcType=VARCHAR}, 
+      #{beginsign,jdbcType=VARCHAR}, #{endsign,jdbcType=VARCHAR}, #{buildtime,jdbcType=DATE}, 
+      #{buildcompany,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniu.domain.Road">
+    insert into road
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roadid != null">
+        roadId,
+      </if>
+      <if test="typeid != null">
+        typeId,
+      </if>
+      <if test="roadlevelid != null">
+        roadLevelId,
+      </if>
+      <if test="roadname != null">
+        roadName,
+      </if>
+      <if test="beginposition != null">
+        beginPosition,
+      </if>
+      <if test="endposition != null">
+        endPosition,
+      </if>
+      <if test="beginsign != null">
+        beginSign,
+      </if>
+      <if test="endsign != null">
+        endSign,
+      </if>
+      <if test="buildtime != null">
+        buildTime,
+      </if>
+      <if test="buildcompany != null">
+        buildCompany,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roadid != null">
+        #{roadid,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null">
+        #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="roadlevelid != null">
+        #{roadlevelid,jdbcType=INTEGER},
+      </if>
+      <if test="roadname != null">
+        #{roadname,jdbcType=VARCHAR},
+      </if>
+      <if test="beginposition != null">
+        #{beginposition,jdbcType=VARCHAR},
+      </if>
+      <if test="endposition != null">
+        #{endposition,jdbcType=VARCHAR},
+      </if>
+      <if test="beginsign != null">
+        #{beginsign,jdbcType=VARCHAR},
+      </if>
+      <if test="endsign != null">
+        #{endsign,jdbcType=VARCHAR},
+      </if>
+      <if test="buildtime != null">
+        #{buildtime,jdbcType=DATE},
+      </if>
+      <if test="buildcompany != null">
+        #{buildcompany,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniu.domain.RoadExample" resultType="java.lang.Long">
+    select count(*) from road
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update road
+    <set>
+      <if test="record.roadid != null">
+        roadId = #{record.roadid,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeid != null">
+        typeId = #{record.typeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.roadlevelid != null">
+        roadLevelId = #{record.roadlevelid,jdbcType=INTEGER},
+      </if>
+      <if test="record.roadname != null">
+        roadName = #{record.roadname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginposition != null">
+        beginPosition = #{record.beginposition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endposition != null">
+        endPosition = #{record.endposition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginsign != null">
+        beginSign = #{record.beginsign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endsign != null">
+        endSign = #{record.endsign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildtime != null">
+        buildTime = #{record.buildtime,jdbcType=DATE},
+      </if>
+      <if test="record.buildcompany != null">
+        buildCompany = #{record.buildcompany,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update road
+    set roadId = #{record.roadid,jdbcType=INTEGER},
+      typeId = #{record.typeid,jdbcType=INTEGER},
+      roadLevelId = #{record.roadlevelid,jdbcType=INTEGER},
+      roadName = #{record.roadname,jdbcType=VARCHAR},
+      beginPosition = #{record.beginposition,jdbcType=VARCHAR},
+      endPosition = #{record.endposition,jdbcType=VARCHAR},
+      beginSign = #{record.beginsign,jdbcType=VARCHAR},
+      endSign = #{record.endsign,jdbcType=VARCHAR},
+      buildTime = #{record.buildtime,jdbcType=DATE},
+      buildCompany = #{record.buildcompany,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniu.domain.Road">
+    update road
+    <set>
+      <if test="typeid != null">
+        typeId = #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="roadlevelid != null">
+        roadLevelId = #{roadlevelid,jdbcType=INTEGER},
+      </if>
+      <if test="roadname != null">
+        roadName = #{roadname,jdbcType=VARCHAR},
+      </if>
+      <if test="beginposition != null">
+        beginPosition = #{beginposition,jdbcType=VARCHAR},
+      </if>
+      <if test="endposition != null">
+        endPosition = #{endposition,jdbcType=VARCHAR},
+      </if>
+      <if test="beginsign != null">
+        beginSign = #{beginsign,jdbcType=VARCHAR},
+      </if>
+      <if test="endsign != null">
+        endSign = #{endsign,jdbcType=VARCHAR},
+      </if>
+      <if test="buildtime != null">
+        buildTime = #{buildtime,jdbcType=DATE},
+      </if>
+      <if test="buildcompany != null">
+        buildCompany = #{buildcompany,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where roadId = #{roadid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniu.domain.Road">
+    update road
+    set typeId = #{typeid,jdbcType=INTEGER},
+      roadLevelId = #{roadlevelid,jdbcType=INTEGER},
+      roadName = #{roadname,jdbcType=VARCHAR},
+      beginPosition = #{beginposition,jdbcType=VARCHAR},
+      endPosition = #{endposition,jdbcType=VARCHAR},
+      beginSign = #{beginsign,jdbcType=VARCHAR},
+      endSign = #{endsign,jdbcType=VARCHAR},
+      buildTime = #{buildtime,jdbcType=DATE},
+      buildCompany = #{buildcompany,jdbcType=VARCHAR}
+    where roadId = #{roadid,jdbcType=INTEGER}
+  </update>
+</mapper>

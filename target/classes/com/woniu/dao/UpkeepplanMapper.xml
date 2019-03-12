@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniu.dao.UpkeepplanMapper">
+  <resultMap id="BaseResultMap" type="com.woniu.domain.Upkeepplan">
+    <id column="upkeepId" jdbcType="INTEGER" property="upkeepid" />
+    <result column="planStartTime" jdbcType="DATE" property="planstarttime" />
+    <result column="expectantPeriod" jdbcType="VARCHAR" property="expectantperiod" />
+    <result column="expectantFees" jdbcType="DOUBLE" property="expectantfees" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    upkeepId, planStartTime, expectantPeriod, expectantFees
+  </sql>
+  <select id="selectByExample" parameterType="com.woniu.domain.UpkeepplanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from upkeepplan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from upkeepplan
+    where upkeepId = #{upkeepid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from upkeepplan
+    where upkeepId = #{upkeepid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniu.domain.UpkeepplanExample">
+    delete from upkeepplan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniu.domain.Upkeepplan">
+    insert into upkeepplan (upkeepId, planStartTime, expectantPeriod, 
+      expectantFees)
+    values (#{upkeepid,jdbcType=INTEGER}, #{planstarttime,jdbcType=DATE}, #{expectantperiod,jdbcType=VARCHAR}, 
+      #{expectantfees,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniu.domain.Upkeepplan">
+    insert into upkeepplan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="upkeepid != null">
+        upkeepId,
+      </if>
+      <if test="planstarttime != null">
+        planStartTime,
+      </if>
+      <if test="expectantperiod != null">
+        expectantPeriod,
+      </if>
+      <if test="expectantfees != null">
+        expectantFees,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="upkeepid != null">
+        #{upkeepid,jdbcType=INTEGER},
+      </if>
+      <if test="planstarttime != null">
+        #{planstarttime,jdbcType=DATE},
+      </if>
+      <if test="expectantperiod != null">
+        #{expectantperiod,jdbcType=VARCHAR},
+      </if>
+      <if test="expectantfees != null">
+        #{expectantfees,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniu.domain.UpkeepplanExample" resultType="java.lang.Long">
+    select count(*) from upkeepplan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update upkeepplan
+    <set>
+      <if test="record.upkeepid != null">
+        upkeepId = #{record.upkeepid,jdbcType=INTEGER},
+      </if>
+      <if test="record.planstarttime != null">
+        planStartTime = #{record.planstarttime,jdbcType=DATE},
+      </if>
+      <if test="record.expectantperiod != null">
+        expectantPeriod = #{record.expectantperiod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expectantfees != null">
+        expectantFees = #{record.expectantfees,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update upkeepplan
+    set upkeepId = #{record.upkeepid,jdbcType=INTEGER},
+      planStartTime = #{record.planstarttime,jdbcType=DATE},
+      expectantPeriod = #{record.expectantperiod,jdbcType=VARCHAR},
+      expectantFees = #{record.expectantfees,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniu.domain.Upkeepplan">
+    update upkeepplan
+    <set>
+      <if test="planstarttime != null">
+        planStartTime = #{planstarttime,jdbcType=DATE},
+      </if>
+      <if test="expectantperiod != null">
+        expectantPeriod = #{expectantperiod,jdbcType=VARCHAR},
+      </if>
+      <if test="expectantfees != null">
+        expectantFees = #{expectantfees,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where upkeepId = #{upkeepid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniu.domain.Upkeepplan">
+    update upkeepplan
+    set planStartTime = #{planstarttime,jdbcType=DATE},
+      expectantPeriod = #{expectantperiod,jdbcType=VARCHAR},
+      expectantFees = #{expectantfees,jdbcType=DOUBLE}
+    where upkeepId = #{upkeepid,jdbcType=INTEGER}
+  </update>
+</mapper>

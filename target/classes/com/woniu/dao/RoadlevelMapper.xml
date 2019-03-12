@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniu.dao.RoadlevelMapper">
+  <resultMap id="BaseResultMap" type="com.woniu.domain.Roadlevel">
+    <id column="roadLevelId" jdbcType="INTEGER" property="roadlevelid" />
+    <result column="roadLevelName" jdbcType="VARCHAR" property="roadlevelname" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    roadLevelId, roadLevelName
+  </sql>
+  <select id="selectByExample" parameterType="com.woniu.domain.RoadlevelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from roadlevel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from roadlevel
+    where roadLevelId = #{roadlevelid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from roadlevel
+    where roadLevelId = #{roadlevelid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniu.domain.RoadlevelExample">
+    delete from roadlevel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniu.domain.Roadlevel">
+    insert into roadlevel (roadLevelId, roadLevelName)
+    values (#{roadlevelid,jdbcType=INTEGER}, #{roadlevelname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniu.domain.Roadlevel">
+    insert into roadlevel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roadlevelid != null">
+        roadLevelId,
+      </if>
+      <if test="roadlevelname != null">
+        roadLevelName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roadlevelid != null">
+        #{roadlevelid,jdbcType=INTEGER},
+      </if>
+      <if test="roadlevelname != null">
+        #{roadlevelname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniu.domain.RoadlevelExample" resultType="java.lang.Long">
+    select count(*) from roadlevel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update roadlevel
+    <set>
+      <if test="record.roadlevelid != null">
+        roadLevelId = #{record.roadlevelid,jdbcType=INTEGER},
+      </if>
+      <if test="record.roadlevelname != null">
+        roadLevelName = #{record.roadlevelname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update roadlevel
+    set roadLevelId = #{record.roadlevelid,jdbcType=INTEGER},
+      roadLevelName = #{record.roadlevelname,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniu.domain.Roadlevel">
+    update roadlevel
+    <set>
+      <if test="roadlevelname != null">
+        roadLevelName = #{roadlevelname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where roadLevelId = #{roadlevelid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniu.domain.Roadlevel">
+    update roadlevel
+    set roadLevelName = #{roadlevelname,jdbcType=VARCHAR}
+    where roadLevelId = #{roadlevelid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniu.dao.BirdgeMapper">
+  <resultMap id="BaseResultMap" type="com.woniu.domain.Birdge">
+    <id column="birdgeId" jdbcType="INTEGER" property="birdgeid" />
+    <result column="roadId" jdbcType="INTEGER" property="roadid" />
+    <result column="bridgeTypeId" jdbcType="INTEGER" property="bridgetypeid" />
+    <result column="birdgeName" jdbcType="VARCHAR" property="birdgename" />
+    <result column="buildTime" jdbcType="DATE" property="buildtime" />
+    <result column="buildCompany" jdbcType="VARCHAR" property="buildcompany" />
+    <result column="maintenancePeriod" jdbcType="VARCHAR" property="maintenanceperiod" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    birdgeId, roadId, bridgeTypeId, birdgeName, buildTime, buildCompany, maintenancePeriod
+  </sql>
+  <select id="selectByExample" parameterType="com.woniu.domain.BirdgeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from birdge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from birdge
+    where birdgeId = #{birdgeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from birdge
+    where birdgeId = #{birdgeid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniu.domain.BirdgeExample">
+    delete from birdge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniu.domain.Birdge">
+    insert into birdge (birdgeId, roadId, bridgeTypeId, 
+      birdgeName, buildTime, buildCompany, 
+      maintenancePeriod)
+    values (#{birdgeid,jdbcType=INTEGER}, #{roadid,jdbcType=INTEGER}, #{bridgetypeid,jdbcType=INTEGER}, 
+      #{birdgename,jdbcType=VARCHAR}, #{buildtime,jdbcType=DATE}, #{buildcompany,jdbcType=VARCHAR}, 
+      #{maintenanceperiod,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniu.domain.Birdge">
+    insert into birdge
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="birdgeid != null">
+        birdgeId,
+      </if>
+      <if test="roadid != null">
+        roadId,
+      </if>
+      <if test="bridgetypeid != null">
+        bridgeTypeId,
+      </if>
+      <if test="birdgename != null">
+        birdgeName,
+      </if>
+      <if test="buildtime != null">
+        buildTime,
+      </if>
+      <if test="buildcompany != null">
+        buildCompany,
+      </if>
+      <if test="maintenanceperiod != null">
+        maintenancePeriod,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="birdgeid != null">
+        #{birdgeid,jdbcType=INTEGER},
+      </if>
+      <if test="roadid != null">
+        #{roadid,jdbcType=INTEGER},
+      </if>
+      <if test="bridgetypeid != null">
+        #{bridgetypeid,jdbcType=INTEGER},
+      </if>
+      <if test="birdgename != null">
+        #{birdgename,jdbcType=VARCHAR},
+      </if>
+      <if test="buildtime != null">
+        #{buildtime,jdbcType=DATE},
+      </if>
+      <if test="buildcompany != null">
+        #{buildcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="maintenanceperiod != null">
+        #{maintenanceperiod,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniu.domain.BirdgeExample" resultType="java.lang.Long">
+    select count(*) from birdge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update birdge
+    <set>
+      <if test="record.birdgeid != null">
+        birdgeId = #{record.birdgeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.roadid != null">
+        roadId = #{record.roadid,jdbcType=INTEGER},
+      </if>
+      <if test="record.bridgetypeid != null">
+        bridgeTypeId = #{record.bridgetypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.birdgename != null">
+        birdgeName = #{record.birdgename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildtime != null">
+        buildTime = #{record.buildtime,jdbcType=DATE},
+      </if>
+      <if test="record.buildcompany != null">
+        buildCompany = #{record.buildcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maintenanceperiod != null">
+        maintenancePeriod = #{record.maintenanceperiod,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update birdge
+    set birdgeId = #{record.birdgeid,jdbcType=INTEGER},
+      roadId = #{record.roadid,jdbcType=INTEGER},
+      bridgeTypeId = #{record.bridgetypeid,jdbcType=INTEGER},
+      birdgeName = #{record.birdgename,jdbcType=VARCHAR},
+      buildTime = #{record.buildtime,jdbcType=DATE},
+      buildCompany = #{record.buildcompany,jdbcType=VARCHAR},
+      maintenancePeriod = #{record.maintenanceperiod,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniu.domain.Birdge">
+    update birdge
+    <set>
+      <if test="roadid != null">
+        roadId = #{roadid,jdbcType=INTEGER},
+      </if>
+      <if test="bridgetypeid != null">
+        bridgeTypeId = #{bridgetypeid,jdbcType=INTEGER},
+      </if>
+      <if test="birdgename != null">
+        birdgeName = #{birdgename,jdbcType=VARCHAR},
+      </if>
+      <if test="buildtime != null">
+        buildTime = #{buildtime,jdbcType=DATE},
+      </if>
+      <if test="buildcompany != null">
+        buildCompany = #{buildcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="maintenanceperiod != null">
+        maintenancePeriod = #{maintenanceperiod,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where birdgeId = #{birdgeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniu.domain.Birdge">
+    update birdge
+    set roadId = #{roadid,jdbcType=INTEGER},
+      bridgeTypeId = #{bridgetypeid,jdbcType=INTEGER},
+      birdgeName = #{birdgename,jdbcType=VARCHAR},
+      buildTime = #{buildtime,jdbcType=DATE},
+      buildCompany = #{buildcompany,jdbcType=VARCHAR},
+      maintenancePeriod = #{maintenanceperiod,jdbcType=VARCHAR}
+    where birdgeId = #{birdgeid,jdbcType=INTEGER}
+  </update>
+</mapper>
