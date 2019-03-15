@@ -20,31 +20,33 @@ public class UpkeeperojectServiceImpl implements IUpkeepprojectService{
 	@Override
 	public void delete(Integer projectid) {
 		// TODO Auto-generated method stub
-		
+		mapper.deleteByPrimaryKey(projectid);
 	}
 
 	@Override
 	public void update(Upkeepproject upkeepproject) {
 		// TODO Auto-generated method stub
-		
+		mapper.updateByPrimaryKey(upkeepproject);
 	}
 
 	@Override
-	public Upkeepplan findOne(Integer projectid) {
+	public Upkeepproject findOne(Integer projectid) {
 		// TODO Auto-generated method stub
-		return null;
+		Upkeepproject upkeepproject = mapper.selectByPrimaryKey(projectid);
+		return upkeepproject;
 	}
 
 	@Override
 	public List<Upkeepproject> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		List<Upkeepproject> upkeepprojects = mapper.selectByExample(null);
+		return upkeepprojects;
 	}
 
 	@Override
 	public void save(Upkeepproject upkeepproject) {
 		// TODO Auto-generated method stub
-		
+		mapper.insert(upkeepproject);
 	}
 
 }

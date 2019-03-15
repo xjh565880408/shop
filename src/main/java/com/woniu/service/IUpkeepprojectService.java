@@ -9,6 +9,6 @@ public interface IUpkeepprojectService {
 	void save(Upkeepproject upkeepproject);
 	void delete(Integer projectid);
 	void update(Upkeepproject upkeepproject);
-	Upkeepplan findOne(Integer projectid);
+	Upkeepproject findOne(Integer projectid);
 	List<Upkeepproject> findAll();
 }
